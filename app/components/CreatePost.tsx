@@ -1,14 +1,35 @@
 'use client';
 
+import React from 'react';
+import axios from 'axios';
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const CreatePost = () => {
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = React.useState('');
   const [isDisabled, setIsDisabled] = useState(false);
 
+  // create a post
+  const { mutate } = useMutation(async (title: string) => await axios.post('/api/posts/addPost', { title }), {
+    onError: (error) => {
+      console.log(error);
+    },
+    onSuccess: (data) => {
+      console.log(data);
+      setTitle('');
+      setIsDisabled(false);
+    },
+  });
+
+  const submitPost = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsDisabled(true);
+
+    mutate(title);
+  };
+
   return (
-    <form className="bg-white my-8 p-8 rounded-md">
+    <form onSubmit={submitPost} className="bg-white my-8 p-8 rounded-md">
       <div className="flex flex-col my-4">
         <textarea onChange={(e) => setTitle(e.target.value)} name="title" value={title} placeholder="what's in our mind?" className="p-4 text-lg rounded-md my-2 bg-gray-200 "></textarea>
       </div>
