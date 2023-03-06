@@ -3,20 +3,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-interface Props {
-  id: string;
-  avatar: string;
-  name: string;
-  postTitle: string;
-  comments?: Array<{
-    createdAt: string;
-    id: string;
-    postId: string;
-    userId: string;
-  }>;
-}
+import { SinglePosts } from '@/types/SinglePosts';
 
-const Post = ({ id, avatar, name, postTitle, comments }: Props) => {
+const Post = ({ id, avatar, name, title, comments }: SinglePosts): JSX.Element => {
   return (
     <div
       className="
@@ -28,7 +17,7 @@ const Post = ({ id, avatar, name, postTitle, comments }: Props) => {
         <h3 className="font-bold text-gray-700">{name}</h3>
       </div>
       <div className="my-8">
-        <p className="break=all">{postTitle}</p>
+        <p className="break=all">{title}</p>
       </div>
       <div className="flex gap-4 cursor-pointer items-center">
         <Link href={`post/${id}`}>

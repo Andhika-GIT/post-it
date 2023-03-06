@@ -1,9 +1,9 @@
 'use client';
 import axios from 'axios';
-import CreatePost from './components/CreatePost';
+import CreatePost from '@/components/CreatePost';
 import { useQuery } from '@tanstack/react-query';
-import Post from './components/Post';
-import { PostType } from './types/Posts';
+import Post from '@/components/Post';
+import { PostType } from '@/types/Posts';
 
 // fetch all posts
 
@@ -24,7 +24,7 @@ export default function Home() {
     <main>
       <CreatePost />
       {data?.map((post) => (
-        <Post key={post.id} id={post.id} postTitle={post.title} name={post.user.name} avatar={post.user.image} comments={post.comments} />
+        <Post key={post.id} id={post.id} title={post.title} name={post.user.name} avatar={post.user.image} comments={post.comments} />
       ))}
     </main>
   );
