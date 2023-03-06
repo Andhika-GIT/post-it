@@ -8,9 +8,15 @@ interface Props {
   avatar: string;
   name: string;
   postTitle: string;
+  comments?: Array<{
+    createdAt: string;
+    id: string;
+    postId: string;
+    userId: string;
+  }>;
 }
 
-const Post = ({ id, avatar, name, postTitle }: Props) => {
+const Post = ({ id, avatar, name, postTitle, comments }: Props) => {
   return (
     <div
       className="
@@ -26,7 +32,7 @@ const Post = ({ id, avatar, name, postTitle }: Props) => {
       </div>
       <div className="flex gap-4 cursor-pointer items-center">
         <Link href={`post/${id}`}>
-          <p className="text-sm font-bold text-gray-700">Comments</p>
+          <p className="text-sm font-bold text-gray-700">{comments?.length} Comments</p>
         </Link>
       </div>
     </div>
