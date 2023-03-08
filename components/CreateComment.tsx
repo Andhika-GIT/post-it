@@ -15,6 +15,7 @@ const CreateComment = ({ id }: { id: string }) => {
     onSuccess: (res) => {
       setIsDisabled(false);
       toast.success('added your comment', { id: commentToastID });
+      queryClient.invalidateQueries(['detail-post']);
     },
     onError: (error) => {
       setIsDisabled(false);

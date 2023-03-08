@@ -7,6 +7,8 @@ import Toggle from '@/components/Toggle';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 import { toast, Toast } from 'react-hot-toast';
 import axios from 'axios';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 const EditPost = <T extends SinglePosts>({ avatar, name, title, comments, id }: T): JSX.Element => {
   const [toggle, setToggle] = useState<boolean>(false);
@@ -31,7 +33,7 @@ const EditPost = <T extends SinglePosts>({ avatar, name, title, comments, id }: 
   };
 
   return (
-    <>
+    <motion.div animate={{ opacity: 1, scale: 1 }} initial={{ opacity: 0, scale: 0.8 }} transition={{ ease: 'easeOut' }}>
       <div className="bg-white my-8 p-8 rounded-lg">
         <div className="flex items-center gap-2">
           <Image width={32} height={32} src={avatar} alt="avatar" className="rounded-full" />
@@ -41,14 +43,16 @@ const EditPost = <T extends SinglePosts>({ avatar, name, title, comments, id }: 
           <p className="break-all">{title}</p>
         </div>
         <div className="flex items-center gap-4">
-          <p className="text-sm font-bold text-gray-700">{comments?.length} comments</p>
+          <Link href={`post/${id}`}>
+            <p className="text-sm font-bold text-gray-700">{comments?.length} comments</p>
+          </Link>
           <button onClick={(e) => setToggle(true)} className="text-sm font-bold text-red-500">
             Delete
           </button>
         </div>
       </div>
       {toggle && <Toggle deletePost={deletePost} setToggle={setToggle} />}
-    </>
+    </motion.div>
   );
 };
 
