@@ -18,8 +18,6 @@ export default function Home() {
   if (error) return error;
   if (isLoading) return 'loading...';
 
-  console.log(data);
-
   return (
     <main>
       <CreatePost />

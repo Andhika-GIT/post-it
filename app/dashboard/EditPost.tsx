@@ -20,7 +20,6 @@ const EditPost = <T extends SinglePosts>({ avatar, name, title, comments, id }: 
       toast.error('error deleting that post', { id: deleteToastID });
     },
     onSuccess: (data) => {
-      console.log(data);
       toast.success('post has been deleted', { id: deleteToastID });
       QueryClient.invalidateQueries(['auth-posts']);
     },
