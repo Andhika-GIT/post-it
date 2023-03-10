@@ -6,6 +6,7 @@ import axios from 'axios';
 import CreateComment from '@/components/CreateComment';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { Comment } from '@/types/Comment';
 
 interface url {
   params: {
@@ -28,9 +29,9 @@ const PostDetail = (url: url) => {
 
   return (
     <div>
-      <Post id={data?.id} name={data?.user?.name} avatar={data.user.image} title={data.title} comments={data.comments} />
+      <Post id={data.id} name={data.user?.name} avatar={data.user.image} title={data.title} comments={data.comments} />
       <CreateComment id={data.id} />
-      {data?.comments?.map((comment) => (
+      {data?.comments?.map((comment: Comment) => (
         <motion.div animate={{ opacity: 1, scale: 1 }} initial={{ opacity: 0, scale: 0.8 }} transition={{ ease: 'easeOut' }} className="my-6 bg-white p-8 rounded-md" key={comment.id}>
           <div className="flex items-center gap-2">
             <Image width={24} height={24} src={comment.user?.image} alt="avatar" />
